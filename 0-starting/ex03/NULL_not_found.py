@@ -1,15 +1,15 @@
 def NULL_not_found(object: any) -> int:
-    dict = {
-        "NoneType": "Nothing",
-        "str": "Empty",
-        "int": "Zero",
-        "bool": "Fake",
-    }
-
-    prefix = dict.get(type(object).__name__)
     if object != object:
         prefix = "Cheese"
-    elif bool(object) or prefix is None:
+    elif object is None:
+        prefix = "Nothing"
+    elif object is False:
+        prefix = "Fake"
+    elif object == 0:
+        prefix = "Zero"
+    elif isinstance(object, str) and not (object and object.isprintable()):
+        prefix = "Empty"
+    else:
         print("Type not found")
         return 1
     print(f"{prefix}: {object} {type(object)}")

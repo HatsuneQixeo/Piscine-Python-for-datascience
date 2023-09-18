@@ -1,7 +1,7 @@
 import sys
 
 
-def add(counts: dict, c: str):
+def add(counts: dict, c: str) -> bool:
     """building's helper function"""
 
     funcset = {
@@ -13,8 +13,8 @@ def add(counts: dict, c: str):
     for f in funcset:
         if f():
             counts[funcset[f]] += 1
-            return
-    counts['other'] += 1
+            return True
+    return False
 
 
 def building(string: str):
@@ -28,9 +28,13 @@ def building(string: str):
         'other': 0
     }
 
-    assert string.isprintable(), f'Contains non-printable character: {string}'
     for c in string:
-        add(counts, c)
+        if add(counts, c):
+            continue
+        elif c.isprintable():
+            counts['other'] += 1
+        else:
+            raise AssertionError(f'Contain non-printable character: {string}')
     print(f'The text contains {len(string)} characters:')
     print(f'{counts["upper"]} upper letters')
     print(f'{counts["lower"]} lower letters')
@@ -43,7 +47,8 @@ def main():
     length = len(sys.argv)
     try:
         if length == 1:
-            arg = input('Enter string: ')
+            print("Enter a string:", end=' ', flush=True)
+            arg = sys.stdin.readline()
         elif length == 2:
             arg = sys.argv[1]
         else:
@@ -52,8 +57,8 @@ def main():
         exit(0)
     except AssertionError as e:
         print("AssertionError:", e)
-    except BaseException as e:
-        print(e)
+    except KeyboardInterrupt:
+        pass
     exit(1)
 
 
