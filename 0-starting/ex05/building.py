@@ -10,6 +10,7 @@ def add(counts: dict, c: str) -> bool:
         c.isspace: 'space',
         c.isdigit: 'digit'
     }
+
     for f in funcset:
         if f():
             counts[funcset[f]] += 1
