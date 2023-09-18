@@ -16,7 +16,7 @@ def main():
         exit(0)
     except AssertionError as e:
         print("AssertionError:", e)
-    except BaseException as e:
+    except Exception as e:
         print(e)
     exit(1)
 
