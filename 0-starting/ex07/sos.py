@@ -53,10 +53,12 @@ def main():
         string = sys.argv[1]
         assert string.replace(' ', '').isalnum(), "the arguments are bad"
         print(morse(string))
+        exit(0)
     except AssertionError as e:
         print("AssertionError:", e)
     except BaseException as e:
         print(e)
+    exit(1)
 
 
 if __name__ == "__main__":

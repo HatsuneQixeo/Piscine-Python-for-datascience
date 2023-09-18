@@ -1,4 +1,4 @@
-import os
+# import os
 
 
 def log(progress: int, total_iteration: int, bar_capacity: int) -> None:
@@ -10,9 +10,9 @@ def log(progress: int, total_iteration: int, bar_capacity: int) -> None:
 
 
 def getTermSize() -> int:
-    if os.isatty(1) is False:
-        return 80
-    return os.get_terminal_size().columns
+    # if os.isatty(1) is False:
+    return 80
+    # return os.get_terminal_size().columns
 
 
 def ft_tqdm(lst: range) -> None:

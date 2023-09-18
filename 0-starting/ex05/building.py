@@ -49,10 +49,12 @@ def main():
         else:
             raise AssertionError("Too many arguments")
         building(arg)
+        exit(0)
     except AssertionError as e:
         print("AssertionError:", e)
     except BaseException as e:
         print(e)
+    exit(1)
 
 
 if __name__ == '__main__':
