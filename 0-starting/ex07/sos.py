@@ -49,9 +49,11 @@ def morse(string: str) -> str:
 
 def main():
     try:
-        assert len(sys.argv) == 2, "the arguments are bad"
+        if len(sys.argv) != 2:
+            raise AssertionError("the arguments are bad")
         string = sys.argv[1]
-        assert string.replace(' ', '').isalnum(), "the arguments are bad"
+        if not string.replace(' ', '').isalnum():
+            raise AssertionError("the arguments are bad")
         print(morse(string))
         exit(0)
     except AssertionError as e:

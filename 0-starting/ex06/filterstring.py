@@ -4,13 +4,13 @@ from ft_filter import ft_filter
 
 def main():
     try:
-        assert len(sys.argv) == 3 and sys.argv[2].isdigit(), \
-            "the arguments are bad"
+        if not (len(sys.argv) == 3 and sys.argv[2].isdigit()):
+            raise AssertionError("the arguments are bad")
         string = sys.argv[1]
-        assert string.isprintable(), \
-            "Contain non printable characters"
-        assert string.replace(' ', '').isalnum(), \
-            "Contain punctuation characters"
+        if not string.isprintable():
+            raise AssertionError("Contain non printable characters")
+        if not string.replace(' ', '').isalnum():
+            raise AssertionError("Contain punctuation characters")
         n = int(sys.argv[2])
         print([i for i in ft_filter(lambda x: len(x) > n, string.split())])
         exit(0)
