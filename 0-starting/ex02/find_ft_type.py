@@ -2,7 +2,7 @@ def all_thing_is_obj(object: any) -> int:
     typename = type(object)
     name = typename.__name__
 
-    if name == "list" or name == "tuple" or name == "set" or name == "dict":
+    if name in ("list", "tuple", "set", "dict"):
         prefix = name.capitalize()
     elif name == "str":
         prefix = f"{object} is in the kitchen"
