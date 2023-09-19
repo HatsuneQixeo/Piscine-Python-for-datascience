@@ -17,21 +17,25 @@ def testException(height: list, weight: list, throw: bool) -> str:
         print(lst_bmi)
         print(lst_limit)
         if throw:
-            return "Missing AssertionError"
+            return "Missing Exception"
     except Exception as e:
         print(f"{e.__class__.__name__}:", e)
         if not throw:
-            return "Unexpected AssertionError"
+            return f"Unexpected Exception({e.__class__.__name__})"
     return ""
 
 
 def test(height: list, weight: list, throw: bool) -> None:
+    reset = '\x1b[0m'
+    bold = '\x1b[1m'
+    red_text = '\x1b[31m'
+    green_text = '\x1b[32m'
     error = testException(height, weight, throw)
     if error:
         print(f"Error: {error} for case:", height, weight)
-        print("Failed")
+        print(f"{bold}{red_text}Failed{reset}")
     else:
-        print("OK")
+        print(f"{bold}{green_text}OK{reset}")
 
 
 def mytest():
