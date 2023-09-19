@@ -19,7 +19,7 @@ def ft_tqdm(lst: range) -> None:
     total_iteration = len(lst)
     bar_capacity = getTermSize() - (len(str(total_iteration)) * 2) - 5 - 3
     # 5 is the total literal character count, 3 is progress percentage
-    for i in lst:
+    for i in range(total_iteration):
         log(i, total_iteration, bar_capacity)
         yield
     log(total_iteration, total_iteration, bar_capacity)
