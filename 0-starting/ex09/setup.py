@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 NAME = 'ft_package'
-VERSION = '1'
+VERSION = '0.0.1'
 DESCRIPTION = 'piscine_python\'s exercise'
 LONG_DESCRIPTION = DESCRIPTION
 
