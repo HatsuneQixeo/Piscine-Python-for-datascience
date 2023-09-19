@@ -8,7 +8,7 @@ ft_list[1] = "World!"
 ft_tuple = ("Hello", "Malaysia!")
 
 ft_set.remove("tutu!")
-ft_set.add("Kuala Lumpur!")
+ft_set.add("Subang Jaya!")
 
 ft_dict["Hello"] = "42 Kuala Lumpur!"
 
