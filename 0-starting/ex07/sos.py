@@ -44,7 +44,7 @@ def morse(string: str) -> str:
         ' ': '/'
     }
 
-    return ' '.join([NESTED_MORSE.get(i.upper()) for i in string])
+    return ' '.join(NESTED_MORSE.get(i.upper()) for i in string)
 
 
 def main():

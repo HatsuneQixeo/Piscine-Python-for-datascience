@@ -13,8 +13,8 @@ def log(progress: int, total_iteration: int, bar_capacity: int) -> None:
 def getTermSize() -> int:
     """Return terminal size. Commented out due to os module not available."""
     # if os.isatty(1) is False:
+    #     return os.get_terminal_size().columns
     return 80
-    # return os.get_terminal_size().columns
 
 
 def ft_tqdm(lst: range) -> None:
