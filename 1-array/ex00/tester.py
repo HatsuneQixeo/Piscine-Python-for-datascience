@@ -1,4 +1,5 @@
 from give_bmi import give_bmi, apply_limit
+import numpy as np
 
 
 def subjectTest():
@@ -71,13 +72,47 @@ def mytest():
     print("test: weird shape")
     test([[1.9, 1.8], [19]], [50, 60], True)
 
+    # Technically the rest of the test are not list so...
+    # The only test where it matters is probably float/complex128,
+    # where the type is still being kept track by list.
+    # Based on the result of asserting issubclass(arr.dtype.type, (int, float))
+    #  inside apply_limit
+    a = np.array([1, 2])
+
+    cast = lambda type: a.astype(type).tolist()
+    print("test: type float16/32")
+    test(a.astype(np.float16).tolist(), a.astype(np.float32).tolist(), False)
+    print("test: type float64/128")
+    test(a.astype(np.float64).tolist(), a.astype(np.float128).tolist(), False)
+
+    print("test: type int8/16")
+    test(a.astype(np.int8).tolist(), a.astype(np.int16).tolist(), False)
+    print("test: type int32/64")
+    test(a.astype(np.int32).tolist(), a.astype(np.int64).tolist(), False)
+
+    print("test: type uint8/16")
+    test(a.astype(np.uint8).tolist(), a.astype(np.uint16).tolist(), False)
+    print("test: type uint32/64")
+    test(a.astype(np.uint32).tolist(), a.astype(np.uint64).tolist(), False)
+
+    print("test: type np.bool_")
+    test(a.astype(np.bool_).tolist(), a.astype(np.bool_).tolist(), True)
+
+    print("test: type complex64")
+    test(a.astype(np.complex64).tolist(), a.astype(np.complex64).tolist(), False)
+    print("test: type complex128")
+    test(a.astype(np.complex128).tolist(), a.astype(np.complex128).tolist(), False)
+
+
+
 
 def main():
     try:
         subjectTest()
         mytest()
     except Exception as e:
-        print("Unexpected Exception in main:", e)
+        # print(f"Unexpected {e.__class__.__name__} in main:", e)
+        raise e
 
 
 if __name__ == "__main__":
