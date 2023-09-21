@@ -12,29 +12,33 @@ def subjectTest():
     print(apply_limit(bmi, 26))
 
 
-def testExcept(height: list, weight: list, throw: bool) -> str:
+def testExcept(height: list, weight: list, e_class: type[Exception]) -> str:
     """Component for Exception testing"""
+    assert (e_class is None or issubclass(e_class, Exception)), \
+        "e_class must be a type or None"
     try:
         lst_bmi = give_bmi(height, weight)
         lst_limit = apply_limit(lst_bmi, 26)
         print(lst_bmi)
         print(lst_limit)
-        if throw:
-            return "Missing Exception"
+        if e_class is not None:
+            return f"Missing {e_class.__name__}"
     except Exception as e:
         print(f"{e.__class__.__name__}:", e)
-        if not throw:
-            return f"Unexpected Exception({e.__class__.__name__})"
+        if e_class is not e.__class__:
+            return f"Unexpected {e.__class__.__name__}, \
+expected {e_class.__name__ if e_class is not None else 'None'}"
     return ""
 
 
-def test(height: list, weight: list, throw: bool) -> None:
+def test(height: list, weight: list, exception: type[Exception] = None) \
+        -> None:
     """Test whether the exception is thrown correctly"""
     reset = '\x1b[0m'
     bold = '\x1b[1m'
     red_text = '\x1b[31m'
     green_text = '\x1b[32m'
-    error = testExcept(height, weight, throw)
+    error = testExcept(height, weight, exception)
     if error:
         print(f"Error: {error} for case:", height, weight)
         print(f"{bold}{red_text}Failed{reset}")
@@ -45,32 +49,32 @@ def test(height: list, weight: list, throw: bool) -> None:
 def mytest():
     """Test cases for exceptions"""
     print("test: int and float")
-    test([1, 1.8, 1.9], [60, 70, 80], False)
-
-    print("test: contain str")
-    test([1, 1.8, "str"], [60, 70, 80], True)
+    test([1, 1.8, 1.9], [60, 70, 80])
 
     # Note: bool is a subclass of int
     print("test: contain bool")
-    test([1, 1.8, True], [60, 70, 80], False)
-
-    print("test: different length")
-    test([1, 1.8, 1.9], [60, 70], True)
-
-    print("test: contain None")
-    test([1, 1.8, 1.9], [60, 70, None], True)
+    test([1, 1.8, False], [60, 70, 80])
 
     print("test: empty list")
-    test([], [], False)
+    test([], [])
 
     print("test: 2d list")
-    test([[1.9, 1.8], [1.7, 1.9]], [[50, 60], [70, 99]], False)
+    test([[1.9, 1.8], [1.7, 1.9]], [[50, 60], [70, 99]])
+
+    print("test: contain str")
+    test([1, 1.8, "str"], [60, 70, 80], AssertionError)
+
+    print("test: different length")
+    test([1, 1.8, 1.9], [60, 70], AssertionError)
+
+    print("test: contain None")
+    test([1, 1.8, 1.9], [60, 70, None], AssertionError)
 
     print("test: different shape")
-    test([[1.9, 1.8], [19, 11]], [50, 60, 11, 99], True)
+    test([[1.9, 1.8], [19, 11]], [50, 60, 11, 99], ValueError)
 
     print("test: weird shape")
-    test([[1.9, 1.8], [19]], [50, 60], True)
+    test([[1.9, 1.8], [19]], [50, 60], ValueError)
 
     # Technically the rest of the test are not list so...
     # The only test where it matters is probably float/complex128,
@@ -79,40 +83,36 @@ def mytest():
     #  inside apply_limit
     a = np.array([1, 2])
 
-    cast = lambda type: a.astype(type).tolist()
+    # flake8 sucks
+    def cast(type: np.dtype) -> list:
+        return a.astype(type).tolist()
+    # cast = lambda type: a.astype(type).tolist()
+
     print("test: type float16/32")
-    test(a.astype(np.float16).tolist(), a.astype(np.float32).tolist(), False)
+    test(cast(np.float16), cast(np.float32))
     print("test: type float64/128")
-    test(a.astype(np.float64).tolist(), a.astype(np.float128).tolist(), False)
+    test(cast(np.float64), cast(np.float128))
 
     print("test: type int8/16")
-    test(a.astype(np.int8).tolist(), a.astype(np.int16).tolist(), False)
+    test(cast(np.int8), cast(np.int16))
     print("test: type int32/64")
-    test(a.astype(np.int32).tolist(), a.astype(np.int64).tolist(), False)
+    test(cast(np.int32), cast(np.int64))
 
     print("test: type uint8/16")
-    test(a.astype(np.uint8).tolist(), a.astype(np.uint16).tolist(), False)
+    test(cast(np.uint8), cast(np.uint16))
     print("test: type uint32/64")
-    test(a.astype(np.uint32).tolist(), a.astype(np.uint64).tolist(), False)
+    test(cast(np.uint32), cast(np.uint64))
+
+    print("test: type complex64/128")
+    test(cast(np.complex64), cast(np.complex128))
 
     print("test: type np.bool_")
-    test(a.astype(np.bool_).tolist(), a.astype(np.bool_).tolist(), True)
-
-    print("test: type complex64")
-    test(a.astype(np.complex64).tolist(), a.astype(np.complex64).tolist(), False)
-    print("test: type complex128")
-    test(a.astype(np.complex128).tolist(), a.astype(np.complex128).tolist(), False)
-
-
+    test(cast(np.bool_), cast(np.bool_), AssertionError)
 
 
 def main():
-    try:
-        subjectTest()
-        mytest()
-    except Exception as e:
-        # print(f"Unexpected {e.__class__.__name__} in main:", e)
-        raise e
+    subjectTest()
+    mytest()
 
 
 if __name__ == "__main__":
