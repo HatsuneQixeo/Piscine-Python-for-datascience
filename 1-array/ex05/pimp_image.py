@@ -16,12 +16,14 @@ def get_extension(filename: str) -> str | None:
     extension_pos = filename.rfind('.')
     if extension_pos == -1:
         return None
-    return filename[extension_pos + 1:]
+    else:
+        return filename[extension_pos + 1:]
 
 
 # This whole thing is basically a waste of time.
 # These functions are never suppose to be responsible for exporting image in practice
-# If we just left the actual program decides, it's as easy as just extracting the extension from the source
+# If we just left the actual program to decide,
+#  it's as easy as just extracting the extension from the source
 def export_image(data: np.ndarray, filename: str, format: str | None = None) -> None:
     """Decides the extension if not specified either in filename or format
 
@@ -44,11 +46,13 @@ def export_image(data: np.ndarray, filename: str, format: str | None = None) -> 
     assert data.ndim in (2, 3), "Invalid data dimensions"
     extension = get_extension(filename)
     if format is None:
-        if extension:  # if extension is not empty nor None
+        if extension == "jpg":  # format= does not recognize "jpg"
+            format = "jpeg"
+        elif extension:  # if extension is not empty nor None
             format = extension
         elif data.ndim == 3 and data.shape[2] == 4:  # if pixels has 4 channels(RGBA)
             format = "png"
-        else:  # default to jpeg, format= does not recognize "jpg"
+        else:  # default to jpeg 
             format = "jpeg"
     assert isinstance(format, str), "Format is not string"
     if extension is None:
@@ -60,7 +64,6 @@ def ft_invert(array: np.ndarray) -> np.ndarray:
     """Inverts the colours of the array"""
     array = array.copy()
     array[:, :, :3] = 255 - array[:, :, :3]
-    print(array)
     export_image(array, "inverted")
     return array
 
@@ -69,7 +72,6 @@ def ft_red(array: np.ndarray) -> np.ndarray:
     """Filter green and blue channels from the array"""
     array = array.copy()
     array[:, :, [1, 2]] = 0
-    print(array)
     export_image(array, "red")
     return array
 
@@ -78,7 +80,6 @@ def ft_green(array: np.ndarray) -> np.ndarray:
     """Filter red and blue channels from the array"""
     array = array.copy()
     array[:, :, [0, 2]] = 0
-    print(array)
     export_image(array, "green")
     return array
 
@@ -87,18 +88,16 @@ def ft_blue(array: np.ndarray) -> np.ndarray:
     """Filter red and green channels from the array"""
     array = array.copy()
     array[:, :, [0, 1]] = 0
-    print(array)
     export_image(array, "blue")
     return array
 
 
 def ft_grey(array: np.ndarray) -> np.ndarray:
     """Merge and split the values in array's colour channels"""
-    greyscaled = array[:, :, :3].dot([.299, .587, .114])
-    print(greyscaled)
+    array = array.copy()
     # greyscaled = array[:, :, :3].mean(2)
-    array[:, :, :3] = greyscaled[:, :, np.newaxis].repeat(3, 2)
-    print(array)
+    greyscaled = array[:, :, :3].dot([.299, .587, .114])
+    array[:, :, :3] = greyscaled[:, :, np.newaxis]
     export_image(array, "grey")
     return array
 
