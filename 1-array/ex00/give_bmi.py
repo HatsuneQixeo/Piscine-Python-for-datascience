@@ -9,11 +9,11 @@ This function expects height in meters(m) and weight in kilograms(kg)."""
     np_height = np.array(height)
     np_weight = np.array(weight)
     assert np_height.size == np_weight.size, \
-        "height and weight must have the same length"
-    assert np_height.dtype in (np.dtype('int'), np.dtype('float')), \
-        "height must be a list of numbers"
-    assert np_weight.dtype in (np.dtype('int'), np.dtype('float')), \
-        "weight must be a list of numbers"
+        "Unmatched size between height and weight"
+    assert np.issubdtype(np_height.dtype, np.number), \
+        f"height {np_height.dtype.type} is not a list of numbers"
+    assert np.issubdtype(np_weight.dtype, np.number), \
+        f"weight {np_weight.dtype.type} is not a list of numbers"
     return (np_weight / (np_height ** 2)).tolist()
 
 
@@ -22,8 +22,8 @@ def apply_limit(bmi: list[int | float], limit: int) -> list[bool]:
 representing whether the BMI is beyond the given limit."""
 
     arr = np.array(bmi)
-    assert arr.dtype in (np.dtype('int'), np.dtype('float')), \
-        "bmi must be a list of numbers"
+    assert np.issubdtype(arr.dtype, np.number), \
+        f"bmi {arr.dtype.type} is not a list of numbers"
     return (arr > limit).tolist()
 
 
