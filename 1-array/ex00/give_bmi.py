@@ -1,4 +1,4 @@
-import numpy as NumPy
+import numpy as np
 
 
 def give_bmi(height: list[int | float], weight: list[int | float]) \
@@ -6,13 +6,13 @@ def give_bmi(height: list[int | float], weight: list[int | float]) \
     """Returns a list of BMI values given a list of height and weight.
 This function expects height in meters(m) and weight in kilograms(kg)."""
 
-    np_height = NumPy.array(height)
-    np_weight = NumPy.array(weight)
+    np_height = np.array(height)
+    np_weight = np.array(weight)
     assert np_height.size == np_weight.size, \
         "height and weight must have the same length"
-    assert np_height.dtype in (NumPy.dtype('int'), NumPy.dtype('float')), \
+    assert np_height.dtype in (np.dtype('int'), np.dtype('float')), \
         "height must be a list of numbers"
-    assert np_weight.dtype in (NumPy.dtype('int'), NumPy.dtype('float')), \
+    assert np_weight.dtype in (np.dtype('int'), np.dtype('float')), \
         "weight must be a list of numbers"
     return (np_weight / (np_height ** 2)).tolist()
 
@@ -21,8 +21,8 @@ def apply_limit(bmi: list[int | float], limit: int) -> list[bool]:
     """Return a list of boolean value \
 representing whether the BMI is beyond the given limit."""
 
-    arr = NumPy.array(bmi)
-    assert arr.dtype in (NumPy.dtype('int'), NumPy.dtype('float')), \
+    arr = np.array(bmi)
+    assert arr.dtype in (np.dtype('int'), np.dtype('float')), \
         "bmi must be a list of numbers"
     return (arr > limit).tolist()
 

@@ -2,6 +2,7 @@ from give_bmi import give_bmi, apply_limit
 
 
 def subjectTest():
+    """Test case given by subject"""
     height = [2.71, 1.15]
     weight = [165.3, 38.4]
 
@@ -10,7 +11,8 @@ def subjectTest():
     print(apply_limit(bmi, 26))
 
 
-def testException(height: list, weight: list, throw: bool) -> str:
+def testExcept(height: list, weight: list, throw: bool) -> str:
+    """Component for Exception testing"""
     try:
         lst_bmi = give_bmi(height, weight)
         lst_limit = apply_limit(lst_bmi, 26)
@@ -26,11 +28,12 @@ def testException(height: list, weight: list, throw: bool) -> str:
 
 
 def test(height: list, weight: list, throw: bool) -> None:
+    """Test whether the exception is thrown correctly"""
     reset = '\x1b[0m'
     bold = '\x1b[1m'
     red_text = '\x1b[31m'
     green_text = '\x1b[32m'
-    error = testException(height, weight, throw)
+    error = testExcept(height, weight, throw)
     if error:
         print(f"Error: {error} for case:", height, weight)
         print(f"{bold}{red_text}Failed{reset}")
@@ -39,6 +42,7 @@ def test(height: list, weight: list, throw: bool) -> None:
 
 
 def mytest():
+    """Test cases for exceptions"""
     print("test: int and float")
     test([1, 1.8, 1.9], [60, 70, 80], False)
 

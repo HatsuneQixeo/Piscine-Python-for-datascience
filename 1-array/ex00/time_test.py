@@ -9,19 +9,28 @@ class Person:
     def __init__(self, gender: str, height: int | float, weight: int | float,
                  index: int) \
             -> None:
+        """Person constructor
+            gender: Male | Female
+            height: in cm
+            weight: in kg
+            index: dc
+        """
         self.gender = gender
         self.height = height
         self.weight = weight
         self.index = index
 
     def __repr__(self) -> str:
+        """Return the string representation of Person"""""
         return f"{self.gender} \
 [h:{self.height} w:{self.weight} i:{self.index}]"
 
     def get_height(self) -> int | float:
+        """Return the height in meter"""
         return self.height / 100
 
     def get_weight(self) -> int | float:
+        """Return the weight in kg"""
         return self.weight
 
 
@@ -29,7 +38,7 @@ def read_file(filename: str) -> list[Person]:
     """Read the csv file and return a list of Person objects"""
     lst = list[Person]()
     with open(filename) as f:
-        _ = f.readline()
+        _ = f.readline()  # discard the first line
         for line in f:
             strlist = line.split(',')
             lst.append(Person(strlist[0], float(strlist[1]),
