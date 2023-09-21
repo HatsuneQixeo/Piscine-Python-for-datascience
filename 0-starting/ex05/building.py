@@ -48,7 +48,7 @@ def main():
     length = len(sys.argv)
     try:
         if length == 1:
-            print("Enter a string:", end=' ', flush=True)
+            print("Enter a string:", end=' ', flush=True, file=sys.stderr)
             arg = sys.stdin.readline()
         elif length == 2:
             arg = sys.argv[1]
