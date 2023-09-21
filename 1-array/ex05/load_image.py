@@ -2,7 +2,7 @@ from PIL import Image
 import numpy as np
 
 
-def ft_load(path: str):
+def ft_load(path: str) -> np.ndarray:
     """Loads an image as numpy array and prints its shape to stdout"""
     image = Image.open(path)
     array = np.array(image)
