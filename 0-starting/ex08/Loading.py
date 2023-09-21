@@ -1,18 +1,17 @@
 # import os
 
 
-def log(progress: int, total_iteration: int, bar_capacity: int) -> None:
+def log(i: int, total_iteration: int, bar_capacity: int) -> None:
     """Print a progress bar to the stdout."""
-    percentage = str(int(progress / total_iteration * 100)).rjust(3)
-    iteration = str(progress).rjust(len(str(total_iteration)))
-    bar_length = int(progress / total_iteration * bar_capacity)
-    bar = str().ljust(bar_length, '█').ljust(bar_capacity)
-    print(f"\r{percentage}%|{bar}| {iteration}/{total_iteration}", end='')
+    percentage = int((i / total_iteration) * 100)
+    bar_length = int((i / total_iteration) * bar_capacity)
+    bar = ('█' * bar_length).ljust(bar_capacity, '░')
+    print(f"\r{percentage:3}%|{bar}| {i}/{total_iteration}", end='')
 
 
 def getTermSize() -> int:
     """Return terminal size. Commented out due to os module not available."""
-    # if os.isatty(1) is False:
+    # if os.isatty(1):
     #     return os.get_terminal_size().columns
     return 80
 
