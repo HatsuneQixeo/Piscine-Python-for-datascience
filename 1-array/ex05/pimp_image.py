@@ -13,12 +13,12 @@ def get_extension(filename: str) -> str | None:
 
 
 # This whole thing is basically a waste of time.
-# 
+#
 # Exporting images should never be these functions responsibility in practice.
-# 
+#
 # If we just left the actual program to decide,
 # it's as easy as just extracting the extension from the source.
-# 
+#
 # That said, I wonder what stopped me from exporting images as png.
 def export_image(data: np.ndarray, filename: str, format: str | None = None) \
         -> None:

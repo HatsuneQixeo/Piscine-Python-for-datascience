@@ -70,6 +70,9 @@ def mytest():
     print("test: contain None")
     test([1, 1.8, 1.9], [60, 70, None], AssertionError)
 
+    print("test: 2d has str")
+    test([[1.9, "str"], [1.7, 1.9]], [[50, 60], [70, 99]], AssertionError)
+
     print("test: different shape")
     test([[1.9, 1.8], [19, 11]], [50, 60, 11, 99], ValueError)
 
