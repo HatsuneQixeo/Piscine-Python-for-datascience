@@ -3,7 +3,6 @@ from pimp_image import ft_invert, ft_red, ft_green, ft_blue, ft_grey
 
 
 array = ft_load("../assets/landscape.jpg")
-# array = ft_load("../assets/squad_icon.png")
 ft_invert(array)
 ft_red(array)
 ft_green(array)
