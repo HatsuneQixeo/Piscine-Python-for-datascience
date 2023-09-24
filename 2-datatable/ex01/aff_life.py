@@ -4,7 +4,11 @@ import pandas
 import matplotlib.pyplot as plt
 
 
-def list_tostr(lst: list) -> str:
+def list_tostr(lst: list[str]) -> str:
+    """Join the list of strings into a single string delimited by comma,
+    with the last element delimited by "and".
+    """
+
     size = len(lst)
     if size == 0:
         return ""
@@ -14,24 +18,31 @@ def list_tostr(lst: list) -> str:
         return f"{', '.join(lst[:-1])} and {lst[-1]}"
 
 
-def plottings(countries_name: list, df: pandas.DataFrame) -> None:
+def plotting(countries_name: list[str], filename: str) -> None:
+    """Plot the given countries' data from the given dataframe.
+
+    Raises:
+        RuntimeError when any of the given country is not found.
+
+    Note:
+        Does not do anything if countries_name is an empty list.
+    """
+
+    if len(countries_name) > 1:
+        label = countries_name
+    elif len(countries_name) == 1:
+        label = countries_name[0]
+    else:
+        return
     try:
-        countries_data = df[countries_name]
+        df = load(filename)
+        df.set_index("country", inplace=True)
+        countries_data = df.transpose()[countries_name]
     except KeyError as e:
         raise RuntimeError(f"Country not found: {e}") from e
-    year_range = countries_data.T.keys().astype(int)
-    plt.plot(year_range,
-             countries_data.values,
-             label=(countries_name if len(countries_name) > 1
-                    else countries_name[0])
-             )
+    year_range = countries_data.transpose().keys().astype(int)
+    plt.plot(year_range, countries_data.values, label=label)
     plt.xticks(np.arange(year_range[0], year_range[-1], 40))
-
-
-def get_data(path: str) -> pandas.DataFrame:
-    df = load(path)
-    df.set_index("country", inplace=True)
-    return df.transpose()
 
 
 def main():
@@ -44,7 +55,7 @@ def main():
         plt.title(f"{list_tostr(countries_name)} Life expectancy Projections")
         plt.xlabel("Year")
         plt.ylabel("Life expectancy")
-        plottings(countries_name, get_data(filename))
+        plotting(countries_name, filename)
         plt.legend(loc="lower right")
         plt.savefig("life_expectancy_years.jpg")
         exit(0)

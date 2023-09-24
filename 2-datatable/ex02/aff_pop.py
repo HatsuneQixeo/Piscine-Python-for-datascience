@@ -7,19 +7,19 @@ def ssuftoa(string: str) -> int:
     """Convert the given human readable number in str to int."""
 
     multipliers = {
-        'K': 1000,
-        'M': 1000000,
-        'B': 1000000000
+        'k': 10**3,
+        'M': 10**6,
+        'B': 10**9
     }
 
-    m = multipliers.get(string[-1].upper())
+    m = multipliers.get(string[-1])
     if m is None:
         return int(string)
     else:
         return int(float(string[:-1]) * m)
 
 
-def itossuf(n: int, index: int) -> str:
+def itossuf(n: int | float, index: int | None = None) -> str:
     """Convert the given number into a more human readable format.
     Designed as a callback function for matplotlib.ticker.FuncFormatter.
 
@@ -29,17 +29,21 @@ def itossuf(n: int, index: int) -> str:
     Note:
         index is the index of the tick in the axis provided by the caller.
         For example, this is the tick array given to yticks [20M, 40M, 60M],
-        When the function is called with n == 20M, index is given as 0.
-        Remained unused since the string can be calculated.
-
-        Wonder what stopped me from just having a dictionary.
+        when the function is called with n == 20M, index is given as 0,
+        n == 40M, index = 1, and so on.
+        Remained unused since the return value can be calculated.
     """
 
-    magnitude = 0
-    while abs(n) >= 1000:
-        magnitude += 1
-        n /= 1000
-    return str(int(n)) + ('', 'k', 'M', 'B')[magnitude]
+    multipliers = {
+        'B': 10**9,
+        'M': 10**6,
+        'k': 10**3,
+    }
+
+    for suf, value in multipliers.items():
+        if abs(n) >= value:
+            return str(int(n / value)) + suf
+    return str(n)
 
 
 def lstslice(lst: list, start_ele: int, end_ele: int) -> list:
@@ -80,7 +84,8 @@ def main():
         filename = "../population_total.csv"
         # countries_name = ["France", "Japan", "Malaysia"]
         # countries_color = ("tab:blue", "tab:green", "tab:orange")
-        countries_name = ["Belgium", "France"]
+        # countries_name = ["Belgium", "France"]
+        countries_name = ["Malaysia", "Japan"]
         countries_color = ("tab:blue", "tab:green")
         year, countries_population = get_pop_candy(filename, countries_name)
 

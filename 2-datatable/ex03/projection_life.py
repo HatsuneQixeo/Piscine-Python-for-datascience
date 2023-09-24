@@ -19,31 +19,31 @@ def ssuftoa(string: str) -> int:
         return int(float(string[:-1]) * m)
 
 
-def itossuf(n: int | float, index: int | None = None) -> str:
-    """Convert the given number into a more human readable format.
-    Designed as a callback function for matplotlib.ticker.FuncFormatter.
+# def itossuf(n: int | float, index: int | None = None) -> str:
+#     """Convert the given number into a more human readable format.
+#     Designed as a callback function for matplotlib.ticker.FuncFormatter.
 
-    This function is callled each time the library requests a tick to be
-    formatted.
+#     This function is callled each time the library requests a tick to be
+#     formatted.
 
-    Note:
-        index is the index of the tick in the axis provided by the caller.
-        For example, this is the tick array given to yticks [20M, 40M, 60M],
-        when the function is called with n == 20M, index is given as 0,
-        n == 40M, index = 1, and so on.
-        Remained unused since the return value can be calculated.
-    """
+#     Note:
+#         index is the index of the tick in the axis provided by the caller.
+#         For example, this is the tick array given to yticks [20M, 40M, 60M],
+#         when the function is called with n == 20M, index is given as 0,
+#         n == 40M, index = 1, and so on.
+#         Remained unused since the return value can be calculated.
+#     """
 
-    multipliers = {
-        'B': 10**9,
-        'M': 10**6,
-        'k': 10**3,
-    }
+#     multipliers = {
+#         'B': 10**9,
+#         'M': 10**6,
+#         'k': 10**3,
+#     }
 
-    for suf, value in multipliers.items():
-        if abs(n) >= value:
-            return str(int(n / value)) + suf
-    return str(n)
+#     for suf, value in multipliers.items():
+#         if abs(n) >= value:
+#             return str(int(n / value)) + suf
+#     return str(n)
 
 
 def main():
