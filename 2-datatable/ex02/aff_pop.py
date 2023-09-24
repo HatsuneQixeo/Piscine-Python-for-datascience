@@ -69,7 +69,6 @@ def get_pop_candy(filename: str, countries_name: list[str]) \
     """
 
     df = load(filename)
-    df.set_index("country", inplace=True)
     try:
         countries_data = df.transpose()[countries_name].transpose()
     except KeyError as e:
@@ -94,9 +93,11 @@ def main():
         countries_population = np.vectorize(ssuftoa)(countries_population)
 
         plt.title("Population Projections")
+
         for pop, name, color in \
                 zip(countries_population, countries_name, countries_color):
             plt.plot(year, pop, label=name, color=color)
+
         plt.xlabel("Year")
         plt.xticks(year[0::40])
 

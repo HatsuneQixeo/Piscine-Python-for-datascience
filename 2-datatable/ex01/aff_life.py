@@ -18,7 +18,7 @@ def list_tostr(lst: list[str]) -> str:
         return f"{', '.join(lst[:-1])} and {lst[-1]}"
 
 
-def plotting(countries_name: list[str], filename: str) -> None:
+def plotting(countries_name: list[str], df: pandas.DataFrame) -> None:
     """Plot the given countries' data from the given dataframe.
 
     Raises:
@@ -35,8 +35,6 @@ def plotting(countries_name: list[str], filename: str) -> None:
     else:
         return
     try:
-        df = load(filename)
-        df.set_index("country", inplace=True)
         countries_data = df.transpose()[countries_name]
     except KeyError as e:
         raise RuntimeError(f"Country not found: {e}") from e
@@ -51,14 +49,18 @@ def main():
         # countries_name = ["France"]
         countries_name = ["Malaysia"]
         filename = "../life_expectancy_years.csv"
+        df = load(filename)
 
         plt.title(f"{list_tostr(countries_name)} Life expectancy Projections")
+
+        plotting(countries_name, df)
+
         plt.xlabel("Year")
+
         plt.ylabel("Life expectancy")
-        plotting(countries_name, filename)
+
         plt.legend(loc="lower right")
         plt.savefig("life_expectancy_years.jpg")
-        exit(0)
     except Exception as e:
         print('Error:', e)
         exit(1)

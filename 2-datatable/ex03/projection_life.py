@@ -56,13 +56,18 @@ def main():
         x = df_gdp[YEAR].values
         y = df_life[YEAR].values
         x = np.vectorize(ssuftoa)(x.astype(str))
-        plt.scatter(x, y)
+
         plt.title(YEAR)
+
+        plt.scatter(x, y)
+
         plt.xlabel('Gross domestic product')
-        plt.ylabel('Life expectancy')
         plt.xscale('log')
         plt.xticks((300, 1000, 10000), ('300', '1k', '10k'))
         # plt.gca().xaxis.set_major_formatter(plt.FuncFormatter(itossuf))
+
+        plt.ylabel('Life expectancy')
+
         plt.savefig(YEAR + '.jpg')
     except Exception as e:
         print('Error:', e)
