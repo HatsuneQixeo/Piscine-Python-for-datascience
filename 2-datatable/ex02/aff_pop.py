@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def ssuftoa(string: str) -> int:
+def ssuftoi(string: str) -> int:
     """Convert the given human readable number in str to int."""
 
     multipliers = {
@@ -90,7 +90,7 @@ def main():
 
         year = lstslice(year, 1800, 2050)
         countries_population = countries_population[:, :len(year)]
-        countries_population = np.vectorize(ssuftoa)(countries_population)
+        countries_population = np.vectorize(ssuftoi)(countries_population)
 
         plt.title("Population Projections")
 

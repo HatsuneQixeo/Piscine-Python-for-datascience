@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def ssuftoa(string: str) -> int:
+def ssuftoi(string: str) -> int:
     """Convert the given human readable number in str to int."""
 
     multipliers = {
@@ -55,7 +55,7 @@ def main():
 
         x = df_gdp[YEAR].values
         y = df_life[YEAR].values
-        x = np.vectorize(ssuftoa)(x.astype(str))
+        x = np.vectorize(ssuftoi)(x.astype(str))
 
         plt.title(YEAR)
 
