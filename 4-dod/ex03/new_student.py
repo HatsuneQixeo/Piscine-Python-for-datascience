@@ -6,7 +6,7 @@ from dataclasses import dataclass, field
 def generate_id() -> str:
     """Generates random id"""
 
-    return "".join(random.choices(string.ascii_lowercase, k = 15))
+    return "".join(random.choices(string.ascii_lowercase, k=15))
 
 
 @dataclass
