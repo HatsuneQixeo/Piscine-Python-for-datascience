@@ -4,13 +4,13 @@ from S1E9 import Character
 class Baratheon(Character):
     """A Baratheon family that inherits from Character"""
 
-    family_name = 'Baratheon'
-    eyes = 'brown'
-    hairs = 'dark'
 
     def __init__(self, first_name: str, is_alive: bool = True):
         """Baratheon constructor"""
         super().__init__(first_name, is_alive)
+        self.family_name = 'Baratheon'
+        self.eyes = 'brown'
+        self.hairs = 'dark'
 
     def __str__(self) -> str:
         """String representation of the Baratheon class"""
@@ -24,13 +24,12 @@ class Baratheon(Character):
 class Lannister(Character):
     """A Lannister family that inherits from Character"""
 
-    family_name = 'Lannister'
-    eyes = 'blue'
-    hairs = 'light'
-
     def __init__(self, first_name: str, is_alive: bool = True):
         """Lannister constructor"""
         super().__init__(first_name, is_alive)
+        self.family_name = 'Lannister'
+        self.eyes = 'blue'
+        self.hairs = 'light'
 
     @classmethod
     def create_lannister(cls, first_name: str, is_alive: bool = True):

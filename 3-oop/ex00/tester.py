@@ -13,4 +13,8 @@ Lyanna = Stark("Lyanna", False)
 print(Lyanna.__dict__)
 
 _ = Character
-# print(Character("Ned").attack('Lyanna'))
+
+try:
+    Character()
+except Exception as e:
+    print(f"{e.__class__.__name__}:", e)
