@@ -4,7 +4,6 @@ from S1E9 import Character
 class Baratheon(Character):
     """A Baratheon family that inherits from Character"""
 
-
     def __init__(self, first_name: str, is_alive: bool = True):
         """Baratheon constructor"""
         super().__init__(first_name, is_alive)
