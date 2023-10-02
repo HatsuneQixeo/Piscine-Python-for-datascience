@@ -14,7 +14,7 @@ def outer(x: int | float, function) -> object:
     """Return a closure that
         - keep track of the amount of times it was called,
         - redefine x with the result of function(x),
-        - and return the result of function(x) every call
+        - and return x every call
     """
 
     count = 0
