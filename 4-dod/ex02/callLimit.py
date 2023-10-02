@@ -7,9 +7,8 @@ def callLimit(limit: int):
 
         def limit_function(*args, **kwargs):
             """Limit the amount of time given function is called"""
-            nonlocal function
+
             nonlocal count
-            nonlocal limit
 
             if count >= limit:
                 print(f"Error: function {function.__name__} at {function}",

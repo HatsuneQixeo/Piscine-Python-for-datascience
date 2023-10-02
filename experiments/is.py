@@ -1,3 +1,5 @@
+# Compares the id(address) basically
+
 def	log(a, b):
 	print(hex(id(a)))
 	print(hex(id(b)))

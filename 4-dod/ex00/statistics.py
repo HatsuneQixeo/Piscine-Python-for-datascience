@@ -39,7 +39,7 @@ def _get_standard_deviation(lst: list[int | float]) -> float:
 
 def ft_statistics(*args, **kwargs) -> None:
     if len(args) == 0:
-        print('\n'.join(['ERROR'] * len(kwargs)))
+        print('ERROR\n' * len(kwargs), end='')
         return
     for act in kwargs.values():
         match act:

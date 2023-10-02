@@ -5,7 +5,6 @@ lst = [
 
 copy = lst[:] # returns a shallow copy (only copy first layer)
 copy = lst[:][:] # Same as above
-copy = [*lst[:][:]] # Same as above
 copy = [*lst[:]] # Same as above
 
 # copy[:][0] = 0  # Numpy array magic, : returns a copy for list, unlike ndarray which returns a view
