@@ -51,10 +51,10 @@ def get_morse(code: str):
 
 
 def to_morse(line: str):
-	lines = line.split()
-	if len(lines) == 0:
+	words = line.split()
+	if len(words) == 0:
 		return ''
-	translated = [get_morse(word) for word in lines]
+	translated = [get_morse(word) for word in words]
 	msg, prev_type = translated[0]
 	for word, type in translated[1:]:
 		msg += (' ' + word) if (type or prev_type) else (word)
